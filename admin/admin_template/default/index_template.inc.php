@@ -42,7 +42,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./index.php"><?php echo $sysconf['library_name']; ?></a>
+                <a class="navbar-brand" href="./index.php">
+                    <div id="logo"></div>
+                    <?php echo $sysconf['library_name']; ?>
+                </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -100,7 +103,7 @@
 
     <!-- Page-Level Plugin Scripts - Dashboard -->
     <script src="<?php echo ATD; ?>js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="<?php echo ATD; ?>js/plugins/morris/morris.js"></script>
+    <!--<script src="<?php echo ATD; ?>js/plugins/morris/morris.js"></script>-->
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="<?php echo ATD; ?>js/sb-admin.js"></script>
