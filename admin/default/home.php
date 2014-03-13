@@ -53,24 +53,24 @@ if (!extension_loaded('gd')) {
 $overdue_q = $dbs->query('SELECT COUNT(loan_id) FROM loan AS l WHERE (l.is_lent=1 AND l.is_return=0 AND TO_DAYS(due_date) < TO_DAYS(\''.date('Y-m-d').'\')) GROUP BY member_id');
 $num_overdue = $overdue_q->num_rows;
 if ($num_overdue > 0) {
-    $warnings[] = str_replace('{num_overdue}', $num_overdue, '<div class="alert alert-danger">'.__('There is currently <strong>{num_overdue}</strong> library members having overdue. Please check at <b>Circulation</b> module at <b>Overdues</b> section for more detail')).'</div>'; //mfc
+    $warnings[] = str_replace('{num_overdue}', $num_overdue, __('There is currently <strong>{num_overdue}</strong> library members having overdue. Please check at <b>Circulation</b> module at <b>Overdues</b> section for more detail')); //mfc
     $overdue_q->free_result();
 }
 // check if images dir is writable or not
 if (!is_writable(IMGBS) OR !is_writable(IMGBS.'barcodes') OR !is_writable(IMGBS.'persons') OR !is_writable(IMGBS.'docs')) {
-    $warnings[] = '<div class="alert alert-danger">'.__('<strong>Images</strong> directory and directories under it is not writable. Make sure it is writable by changing its permission or you won\'t be able to upload any images and create barcodes').'</div>';
+    $warnings[] = __('<strong>Images</strong> directory and directories under it is not writable. Make sure it is writable by changing its permission or you won\'t be able to upload any images and create barcodes');
 }
 // check if file repository dir is writable or not
 if (!is_writable(REPOBS)) {
-    $warnings[] = '<div class="alert alert-danger">'.__('<strong>Repository</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any bibliographic attachments.').'</div>';
+    $warnings[] = __('<strong>Repository</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any bibliographic attachments.');
 }
 // check if file upload dir is writable or not
 if (!is_writable(UPLOAD)) {
-    $warnings[] = '<div class="alert alert-danger">'.__('<strong>File upload</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any file, create report files and create database backups.').'</div>';
+    $warnings[] = __('<strong>File upload</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any file, create report files and create database backups.');
 }
 // check mysqldump
 if (!file_exists($sysconf['mysqldump'])) {
-    $warnings[] = '<div class="alert alert-danger">'.__('The PATH for <strong>mysqldump</strong> program is not right! Please check configuration file or you won\'t be able to do any database backups.').'</div>';
+    $warnings[] = __('The PATH for <strong>mysqldump</strong> program is not right! Please check configuration file or you won\'t be able to do any database backups.');
 }
 
 // check need to be repaired mysql database
@@ -93,7 +93,7 @@ while ($row = $query_of_tables->fetch_row()) {
     while ($rowcheck = $query_of_check->fetch_assoc()) {
         if (!(($rowcheck['Msg_type'] == "status") && ($rowcheck['Msg_text'] == "OK"))) {
             if ($row[0] != $prevtable) {
-                echo '<li class="warning">Table '.$row[0].' might need to be repaired.</li>';
+                echo '<li class="warning alert alert-danger">Table '.$row[0].' might need to be repaired.</li>';
             }
             $prevtable = $row[0];
             $is_repaired = true;
@@ -101,7 +101,7 @@ while ($row = $query_of_tables->fetch_row()) {
     }
 }
 if (($is_repaired) && !isset($_POST['do_repair'])) {
-     echo '<li class="warning"><form method="POST"><input type="hidden" name="do_repair" value="1"><input value="Repaire Tables" type="submit"></form></li>';
+     echo '<li class="warning alert alert-danger"><form method="POST"><input type="hidden" name="do_repair" value="1"><input value="Repaire Tables" type="submit"></form></li>';
 }
 
 // if there any warnings
@@ -109,7 +109,7 @@ if ($warnings) {
     echo '<div class="message">';
     echo '<ul>';
     foreach ($warnings as $warning_msg) {
-        echo '<li class="warning">'.$warning_msg.'</li>';
+        echo '<li class="warning alert alert-danger">'.$warning_msg.'</li>';
     }
     echo '</ul>';
     echo '</div>';

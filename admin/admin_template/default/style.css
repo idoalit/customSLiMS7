@@ -126,8 +126,8 @@ select.select2{
   box-shadow: 0 0 10px rgba(0, 0, 0, .5);
   text-shadow: none;
 }
-.alterCell{
-    background: #fff !important;
+td.alterCell{
+    background: #fff;
 }
 #attachIframe, #itemIframe, #authorIframe, #topicIframe {
   border-top: dotted 1px #ddd;
@@ -403,10 +403,6 @@ table, tr, td, th {
   border-left: dotted 1px #ddd !important;
 }
 
-#dataList td.alterCell {
-  background-color: #fff;
-}
-
 #pageContent td {
   border-top: dotted 1px #ddd !important;
 }
@@ -473,4 +469,11 @@ table, tr, td, th {
 .loanItemCodeInput, #pageContent .loanItemCodeInput {
 	padding: 5px;
 	background: rgb(157, 224, 253) !important;
+}
+.social-input{
+    margin: 5px 0;
+}
+.social-label{
+    width: 150px;
+    display: inline-block;
 }
