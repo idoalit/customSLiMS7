@@ -7,3 +7,5 @@ SLiMS is free open source software for library resources management (such as boo
 
 SLiMS is licensed under GNU GPL version 3. Please read "GPL-3.0 License.txt"
 to learn more about GPL.
+
+SLiMS on GitHub : https://github.com/slims/
