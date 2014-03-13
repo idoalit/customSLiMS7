@@ -1,4 +1,4 @@
-customSLiMS7 - Beta Version
+customSLiMS7 - Alpha Version
 ============
 
 customeSLiMS7 is modification of SENAYAN Library Management System (SLiMS) version 7 Codename Cendana.
