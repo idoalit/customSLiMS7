@@ -20,12 +20,12 @@
     background-color: #fff;
 }
 
-@media(min-width:768px) {
+@media(min-width:992px) {
     #page-wrapper {
         position: inherit;
         margin: 0 0 0 250px;
         padding: 0 30px;
-        min-height: 1300px;
+        min-height: 1000px;
         border-left: 1px solid #e7e7e7;
     }
 }
@@ -113,7 +113,7 @@
     padding-left: 52px;
 }
 
-@media(min-width:768px) {
+@media(min-width:992px) {
     .navbar-static-side {
         z-index: 1;
         position: absolute;
@@ -125,6 +125,58 @@
     .navbar-top-links .dropdown-alerts {
         margin-left: auto;
     }
+}
+
+@media only screen and (max-width: 992px){
+    #side-menu li a span{
+	display: none;
+    }
+    .navbar-static-side {
+        z-index: 1;
+        position: absolute;
+        width: 50px;
+    }
+    #page-wrapper {
+        position: inherit;
+        margin: 0 0 0 50px;
+        padding: 0 30px;
+        min-height: 1000px;
+        border-left: 1px solid #e7e7e7;
+    }
+}
+
+.nav-min .navbar-static-side{
+   width: 50px !important;
+}
+
+.nav-min #side-menu li a span{
+   display: none;
+}
+
+.nav-min #page-wrapper{
+   margin: 0 0 0 50px;
+}
+
+.nav-min .nav-second-level{
+   position: absolute;
+   left: 50px;
+   top: 0px;
+   width: 200px;
+}
+
+.nav-min .nav-second-level li a span{
+   display: inline-block !important;
+}
+
+.nav-min .menu:hover .menu-title{
+   display: inline-block !important;
+   position: absolute;
+   top: 0;
+   left: 50px;
+   background: #7daedb;
+   color: #fff;
+   padding: 10px 15px;
+   white-space:nowrap;
 }
 
 .arrow {

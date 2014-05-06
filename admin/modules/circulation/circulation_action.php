@@ -500,16 +500,16 @@ if (isset($_POST['memberID']) OR isset($_SESSION['memberID'])) {
         }
         echo '</table>'."\n";
         // tab and iframe
-				echo '<ul class="nav nav-tabs nav-justified circ-action-btn">';
-        echo '<li><a accesskey="L" class="tab notAJAX" href="'.MWB.'circulation/loan.php" target="listsFrame">'.__('Loans').' (L)</a></li>';
-        echo '<li class="active"><a accesskey="C" class="tab notAJAX" href="'.MWB.'circulation/loan_list.php" target="listsFrame">'.__('Current Loans').' (C)</a></li>';
+	echo '<ul class="nav nav-tabs nav-justified circ-action-btn">';
+        echo '<li class="active"><a accesskey="L" class="tab notAJAX" href="'.MWB.'circulation/loan.php" target="listsFrame">'.__('Loans').' (L)</a></li>';
+        echo '<li><a accesskey="C" class="tab notAJAX" href="'.MWB.'circulation/loan_list.php" target="listsFrame">'.__('Current Loans').' (C)</a></li>';
         if ($member_type_d['enable_reserve']) {
           echo '<li><a accesskey="R" class="tab notAJAX" href="'.MWB.'circulation/reserve_list.php" target="listsFrame">'.__('Reserve').' (R)</a></li>';
         }
         echo '<li><a accesskey="F" class="tab notAJAX" href="'.MWB.'circulation/fines_list.php" target="listsFrame">'.__('Fines').' (F)</a></li>';
         echo '<li><a accesskey="H" class="tab notAJAX" href="'.MWB.'circulation/member_loan_hist.php" target="listsFrame">'.__('Loan History').' (H)</a></li>'."\n";
         echo '</ul>';
-				echo '<iframe src="modules/circulation/loan_list.php" id="listsFrame" name="listsFrame" class="expandable border"></iframe>'."\n";
+	echo '<iframe src="modules/circulation/loan.php" id="listsFrame" name="listsFrame" class="expandable border"></iframe>'."\n";
     }
     exit();
 }

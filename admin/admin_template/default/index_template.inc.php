@@ -1,4 +1,3 @@
-<?php define ('ATD', $sysconf['admin_template']['dir'].'/'.$sysconf['admin_template']['theme'].'/'); ?>
 <!DOCTYPE html>
 <html><head><title><?php echo $page_title; ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,6 +8,10 @@
 <link href="<?php echo $sysconf['admin_template']['css']; ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo ATD; ?>font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="<?php echo ATD; ?>css/sb-admin.css" rel="stylesheet">
+
+<link href="<?php echo ATD; ?>css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+<link href="<?php echo ATD; ?>css/plugins/timeline/timeline.css" rel="stylesheet">
+
 <link rel="icon" href="<?php echo SWB; ?>webicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="<?php echo SWB; ?>webicon.ico" type="image/x-icon" />
 <link href="<?php echo SWB; ?>template/core.style.css" rel="stylesheet" type="text/css" />
@@ -30,18 +33,15 @@
 <script type="text/javascript" src="<?php echo JWB; ?>jquery.imgareaselect/scripts/jquery.imgareaselect.pack.js"></script>
 <script type="text/javascript" src="<?php echo JWB; ?>webcam.js"></script>
 <script type="text/javascript" src="<?php echo JWB; ?>scanner.js"></script>
+<script type="text/javascript" src="<?php echo ATD; ?>js/plugins/jqueryCookie/jquery.cookie.js"></script>
 </head>
 <body>
     <div id="wrapper">
-        
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <a class="navbar-brand" id="main-menu-toggle" href="#" onclick="navMin()">
+                    <i class="fa fa-bars"></i>
+                </a>
                 <a class="navbar-brand" href="./index.php">
                     <div id="logo"></div>
                     <?php echo $sysconf['library_name']; ?>
@@ -73,7 +73,7 @@
         <!-- /.navbar-static-top -->
         
         <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
+            <div class="sidebarCollapse">
                 <ul class="nav" id="side-menu">
                     <?php echo $main_menu; ?>
                 </ul>
@@ -101,14 +101,8 @@
     <script src="<?php echo ATD; ?>js/bootstrap.min.js"></script>
     <script src="<?php echo ATD; ?>js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Dashboard -->
-    <script src="<?php echo ATD; ?>js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <!--<script src="<?php echo ATD; ?>js/plugins/morris/morris.js"></script>-->
-
     <!-- SB Admin Scripts - Include with every page -->
     <script src="<?php echo ATD; ?>js/sb-admin.js"></script>
 
-    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="<?php echo ATD; ?>js/demo/dashboard-demo.js"></script>
 </body>
 </html>

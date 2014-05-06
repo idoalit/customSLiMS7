@@ -29,46 +29,48 @@ if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
     include_once '../../sysconfig.inc.php';
 }
 ?>
-<div class="row">
-    <div class="col-lg-12">
-	<h1 class="page-header"><?php echo __('Library Administration'); ?></h1>
-    </div>
+<fieldset class="menuBox adminHome">
+<div class="menuBoxInner">
+	<div class="per_title">
+    	<h2><?php echo __('Library Administration'); ?></h2>
+	</div>
 </div>
+</fieldset>
 <?php
 
 // generate warning messages
 $warnings = array();
 // check GD extension
 if (!extension_loaded('gd')) {
-    $warnings[] = '<div class="alert alert-danger"> <i class="fa fa-warning"></i>'.__('<strong>PHP GD</strong> extension is not installed. Please install it or application won\'t be able to create image thumbnail and barcode.').'</div>';
+    $warnings[] = __('<strong>PHP GD</strong> extension is not installed. Please install it or application won\'t be able to create image thumbnail and barcode.');
 } else {
     // check GD Freetype
     if (!function_exists('imagettftext')) {
-        $warnings[] = '<div class="alert alert-danger"> <i class="fa fa-warning"></i>'.__('<strong>Freetype</strong> support is not enabled in PHP GD extension. Rebuild PHP GD extension with Freetype support or application won\'t be able to create barcode.').'</div>';
+        $warnings[] = __('<strong>Freetype</strong> support is not enabled in PHP GD extension. Rebuild PHP GD extension with Freetype support or application won\'t be able to create barcode.');
     }
 }
 // check for overdue
 $overdue_q = $dbs->query('SELECT COUNT(loan_id) FROM loan AS l WHERE (l.is_lent=1 AND l.is_return=0 AND TO_DAYS(due_date) < TO_DAYS(\''.date('Y-m-d').'\')) GROUP BY member_id');
 $num_overdue = $overdue_q->num_rows;
 if ($num_overdue > 0) {
-    //$warnings[] = '<div class="alert alert-danger"> <i class="fa fa-warning"></i>'.str_replace('{num_overdue}', $num_overdue, __('There is currently <strong>{num_overdue}</strong> library members having overdue. Please check at <b>Circulation</b> module at <b>Overdues</b> section for more detail')).'</div>'; //mfc
+    $warnings[] = str_replace('{num_overdue}', $num_overdue, __('There is currently <strong>{num_overdue}</strong> library members having overdue. Please check at <b>Circulation</b> module at <b>Overdues</b> section for more detail')); //mfc
     $overdue_q->free_result();
 }
 // check if images dir is writable or not
 if (!is_writable(IMGBS) OR !is_writable(IMGBS.'barcodes') OR !is_writable(IMGBS.'persons') OR !is_writable(IMGBS.'docs')) {
-    $warnings[] = '<div class="alert alert-danger"> <i class="fa fa-warning"></i>'.__('<strong>Images</strong> directory and directories under it is not writable. Make sure it is writable by changing its permission or you won\'t be able to upload any images and create barcodes').'</div>';
+    $warnings[] = __('<strong>Images</strong> directory and directories under it is not writable. Make sure it is writable by changing its permission or you won\'t be able to upload any images and create barcodes');
 }
 // check if file repository dir is writable or not
 if (!is_writable(REPOBS)) {
-    $warnings[] = '<div class="alert alert-danger"> <i class="fa fa-warning"></i>'.__('<strong>Repository</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any bibliographic attachments.').'</div>';
+    $warnings[] = __('<strong>Repository</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any bibliographic attachments.');
 }
 // check if file upload dir is writable or not
 if (!is_writable(UPLOAD)) {
-    $warnings[] = '<div class="alert alert-danger"><i class="fa fa-warning"></i> '.__('<strong>File upload</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any file, create report files and create database backups.').'</div>';
+    $warnings[] = __('<strong>File upload</strong> directory is not writable. Make sure it is writable (and all directories under it) by changing its permission or you won\'t be able to upload any file, create report files and create database backups.');
 }
 // check mysqldump
 if (!file_exists($sysconf['mysqldump'])) {
-    $warnings[] = '<div class="alert alert-danger"><i class="fa fa-warning"></i> '.__('The PATH for <strong>mysqldump</strong> program is not right! Please check configuration file or you won\'t be able to do any database backups.').'</div>';
+    $warnings[] = __('The PATH for <strong>mysqldump</strong> program is not right! Please check configuration file or you won\'t be able to do any database backups.');
 }
 
 // check need to be repaired mysql database
@@ -91,7 +93,7 @@ while ($row = $query_of_tables->fetch_row()) {
     while ($rowcheck = $query_of_check->fetch_assoc()) {
         if (!(($rowcheck['Msg_type'] == "status") && ($rowcheck['Msg_text'] == "OK"))) {
             if ($row[0] != $prevtable) {
-                echo '<div class="alert alert-danger">Table '.$row[0].' might need to be repaired.';
+                echo '<li class="warning alert alert-danger">Table '.$row[0].' might need to be repaired.</li>';
             }
             $prevtable = $row[0];
             $is_repaired = true;
@@ -99,24 +101,25 @@ while ($row = $query_of_tables->fetch_row()) {
     }
 }
 if (($is_repaired) && !isset($_POST['do_repair'])) {
-     echo '<form method="POST"><input type="hidden" name="do_repair" value="1"><input value="Repaire Tables" type="submit"></form></div>';
+     echo '<li class="warning alert alert-danger"><form method="POST"><input type="hidden" name="do_repair" value="1"><input value="Repaire Tables" type="submit"></form></li>';
 }
 
 // if there any warnings
 if ($warnings) {
     echo '<div class="message">';
+    echo '<ul>';
     foreach ($warnings as $warning_msg) {
-        echo '<div class="col-md-12 warning">'.$warning_msg.'</div>';
+        echo '<li class="warning alert alert-danger">'.$warning_msg.'</li>';
     }
+    echo '</ul>';
     echo '</div>';
 }
 
 // admin page content
 require LIB.'content.inc.php';
-require 'dashboard.php';
-/*$content = new content();
+$content = new content();
 $content_data = $content->get($dbs, 'adminhome');
 if ($content_data) {
     echo '<div class="contentDesc">'.$content_data['Content'].'</div>';
     unset($content_data);
-}*/
+}

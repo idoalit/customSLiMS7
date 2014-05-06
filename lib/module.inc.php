@@ -34,9 +34,9 @@ class module extends simbio
     private $modules_dir = 'modules';
     private $module_table = 'mst_module';
     public $module_list = array();
-    public $appended_first = '<li class="active"><a class="menu home#replaced#" href="index.php"><i class="fa fa-home fa-fw"></i><span>Home</span></a>';
-    public $appended_second = '<li><a class="menu opac" href="../index.php" title="View OPAC in New Window" target="_blank"><i class="fa fa-search fa-fw"></i><span>OPAC</span></a></li>';
-    public $appended_last = '<li><a class="menu logout" href="logout.php"><i class="fa fa-sign-out fa-fw"></i><span>LOGOUT</span></a></li>';
+    public $appended_first = '<li class="active"><a class="menu home#replaced#" href="index.php"><i class="fa fa-dashboard fa-fw"></i><span class="menu-title">Dashboard</span></a>';
+    public $appended_second = '<li><a class="menu opac" href="../index.php" title="View OPAC in New Window" target="_blank"><i class="fa fa-search fa-fw"></i><span class="menu-title">OPAC</span></a></li>';
+    public $appended_last = '<li><a class="menu logout" href="logout.php"><i class="fa fa-sign-out fa-fw"></i><span class="menu-title">LOGOUT</span></a></li>';
 
 
     /**
@@ -83,7 +83,7 @@ class module extends simbio
                     $can_read = utility::havePrivilege($current_module, 'r');
                     $sub_menu = $this->generateSubMenu(($current_module AND $can_read)?$current_module:'');
                     
-                    $_menu .= '<li class="'.( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?'active':'' ).'"><a class="menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' menuCurrent':'' ).'" title="'.$_module['desc'].'" href="index.php?mod='.$_mod_dir.'"><i class="fa fa-'.$_module['name'].' fa-fw"></i><span>'.__($_formated_module_name).'</span><span class="fa arrow"></span></a><ul class="nav nav-second-level">'.$sub_menu.'</ul></li>';
+                    $_menu .= '<li class="mainMenu '.( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?'active':'' ).'"><a class="menu '.$_module['name'].( (isset($_GET['mod']) && $_GET['mod']==$_module['path'])?' menuCurrent':'' ).'" title="'.$_module['desc'].'" href="index.php?mod='.$_mod_dir.'"><i class="fa fa-'.$_module['name'].' fa-fw"></i><span class="menu-title">'.__($_formated_module_name).'</span><span class="fa arrow"></span></a><ul class="nav nav-second-level">'.$sub_menu.'</ul></li>';
                 }
             }
         }

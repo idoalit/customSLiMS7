@@ -1,440 +1,185 @@
-<div class="row">
-    <div class="col-lg-8">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            Actions
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                        </ul>
+<?php
+// IP based access limitation
+require LIB.'ip_based_access.inc.php';
+do_checkIP('smc');
+do_checkIP('smc-reporting');
+// start the session
+require SB.'admin/default/session_check.inc.php';
+// privileges checking
+$can_read = utility::havePrivilege('reporting', 'r');
+$can_write = utility::havePrivilege('reporting', 'w');
+
+if (!$can_read) {
+    die('<div class="alert alert-danger">'.__('You don\'t have enough privileges to access this area!').'</div>');
+}
+
+require SIMBIO.'simbio_GUI/form_maker/simbio_form_element.inc.php';
+?>
+<div class="row r-margin">
+    <div class="col-md-12">
+        <div class="d-container">
+            <div class="col-md-3 col-sm-3">
+                <a href="<?php echo MWB.'reporting/customs/visitor_list.php';?>">
+                <div class="w-box">
+                    <div class="w-left bg-success">
+                        <i class="fa fa-sign-in"></i>
+                    </div>
+                    <div class="w-right">
+                        <p class="w-value" id="w-visitor"><i>Loading ...</i></p>
+                        <p class="w-key">Visitors</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <a href="<?php echo MWB.'reporting/loan_report.php'; ?>">
+                <div class="w-box">
+                    <div class="w-left bg-info">
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                    <div class="w-right">
+                        <p class="w-value" id="w-loan"><i>Loading ...</i></p>
+                        <p class="w-key">Loans</p>
+                    </div>
+                </div>
+                </a>
+            </div>
+            <div class="col-md-3 col-sm-3">
+                <div class="w-box">
+                    <div class="w-left bg-warning">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="w-right">
+                        <p class="w-value">80<span class="w-unit">%</span></p>
+                        <p class="w-key">Text</p>
                     </div>
                 </div>
             </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div id="morris-area-chart"></div>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
-                <div class="pull-right">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                            Actions
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Action</a>
-                            </li>
-                            <li><a href="#">Another action</a>
-                            </li>
-                            <li><a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a>
-                            </li>
-                        </ul>
+            <div class="col-md-3 col-sm-3">
+                <a href="<?php echo MWB.'reporting/customs/overdued_list.php';?>">
+                <div class="w-box">
+                    <div class="w-left bg-danger">
+                        <i class="fa fa-warning"></i>
+                    </div>
+                    <div class="w-right">
+                        <p class="w-value"><?php echo $num_overdue;?></p>
+                        <p class="w-key">overdue</p>
                     </div>
                 </div>
+                </a>
             </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>3326</td>
-                                        <td>10/21/2013</td>
-                                        <td>3:29 PM</td>
-                                        <td>$321.33</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3325</td>
-                                        <td>10/21/2013</td>
-                                        <td>3:20 PM</td>
-                                        <td>$234.34</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3324</td>
-                                        <td>10/21/2013</td>
-                                        <td>3:03 PM</td>
-                                        <td>$724.17</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3323</td>
-                                        <td>10/21/2013</td>
-                                        <td>3:00 PM</td>
-                                        <td>$23.71</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3322</td>
-                                        <td>10/21/2013</td>
-                                        <td>2:49 PM</td>
-                                        <td>$8345.23</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3321</td>
-                                        <td>10/21/2013</td>
-                                        <td>2:23 PM</td>
-                                        <td>$245.12</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3320</td>
-                                        <td>10/21/2013</td>
-                                        <td>2:15 PM</td>
-                                        <td>$5663.54</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3319</td>
-                                        <td>10/21/2013</td>
-                                        <td>2:13 PM</td>
-                                        <td>$943.45</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.table-responsive -->
-                    </div>
-                    <!-- /.col-lg-4 (nested) -->
-                    <div class="col-lg-8">
-                        <div id="morris-bar-chart"></div>
-                    </div>
-                    <!-- /.col-lg-8 (nested) -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-clock-o fa-fw"></i> Timeline
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <ul class="timeline">
-                    <li>
-                        <div class="timeline-badge"><i class="fa fa-check"></i>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                                <p>
-                                    <small class="text-muted"><i class="fa fa-time"></i> 11 hours ago via Twitter</small>
-                                </p>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-badge danger"><i class="fa fa-credit-card"></i>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-badge info"><i class="fa fa-save"></i>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                                <hr>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-cog"></i> 
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="timeline-inverted">
-                        <div class="timeline-badge success"><i class="fa fa-thumbs-up"></i>
-                        </div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h4 class="timeline-title">Timeline Event</h4>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel justo eu mi scelerisque vulputate. Aliquam in metus eu lectus aliquet egestas.</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-    </div>
-    <div class="col-lg-4">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bell fa-fw"></i> Notifications Panel
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <div class="list-group">
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                        <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-envelope fa-fw"></i> Message Sent
-                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-tasks fa-fw"></i> New Task
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                        <span class="pull-right text-muted small"><em>11:32 AM</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                        <span class="pull-right text-muted small"><em>11:13 AM</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                        <span class="pull-right text-muted small"><em>10:57 AM</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                        <span class="pull-right text-muted small"><em>9:49 AM</em>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item">
-                        <i class="fa fa-money fa-fw"></i> Payment Received
-                        <span class="pull-right text-muted small"><em>Yesterday</em>
-                        </span>
-                    </a>
-                </div>
-                <!-- /.list-group -->
-                <a href="#" class="btn btn-default btn-block">View All Alerts</a>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
-            </div>
-            <div class="panel-body">
-                <div id="morris-donut-chart"></div>
-                <a href="#" class="btn btn-default btn-block">View Details</a>
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.panel -->
-        <div class="chat-panel panel panel-default">
-            <div class="panel-heading">
-                <i class="fa fa-comments fa-fw"></i>
-                Chat
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-chevron-down"></i>
-                    </button>
-                    <ul class="dropdown-menu slidedown">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-refresh fa-fw"></i> Refresh
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-check-circle fa-fw"></i> Available
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-times fa-fw"></i> Busy
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-clock-o fa-fw"></i> Away
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-sign-out fa-fw"></i> Sign Out
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <ul class="chat">
-                    <li class="left clearfix">
-                        <span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                        </span>
-                        <div class="chat-body clearfix">
-                            <div class="header">
-                                <strong class="primary-font">Jack Sparrow</strong> 
-                                <small class="pull-right text-muted">
-                                    <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                </small>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                            </p>
-                        </div>
-                    </li>
-                    <li class="right clearfix">
-                        <span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                        </span>
-                        <div class="chat-body clearfix">
-                            <div class="header">
-                                <small class=" text-muted">
-                                    <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                            </p>
-                        </div>
-                    </li>
-                    <li class="left clearfix">
-                        <span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                        </span>
-                        <div class="chat-body clearfix">
-                            <div class="header">
-                                <strong class="primary-font">Jack Sparrow</strong> 
-                                <small class="pull-right text-muted">
-                                    <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                            </p>
-                        </div>
-                    </li>
-                    <li class="right clearfix">
-                        <span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                        </span>
-                        <div class="chat-body clearfix">
-                            <div class="header">
-                                <small class=" text-muted">
-                                    <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
-                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                            </div>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                            </p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.panel-body -->
-            <div class="panel-footer">
-                <div class="input-group">
-                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                    <span class="input-group-btn">
-                        <button class="btn btn-warning btn-sm" id="btn-chat">
-                            Send
-                        </button>
-                    </span>
-                </div>
-            </div>
-            <!-- /.panel-footer -->
-        </div>
-        <!-- /.panel .chat-panel -->
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8 col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o"></i> Visitor Graph <?php echo date("Y"); ?>
+                </div>
+                <div class="panel-body">
+                    <div id="visit-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o"></i> <?php echo __('Collection Statistic'); ?>
+                </div>
+                <div class="panel-body">
+                    <div id="col_type"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+// months array    
+    for($a = 1; $a <= 12; $a++){
+        if($a < 10){
+            $a = '0'.$a;
+        }else{
+            $a;
+        }
+        $months[] = date("Y-").$a;
+    }
+    
+// get member type data from databse
+    $_q = $dbs->query("SELECT member_type_id, member_type_name FROM mst_member_type LIMIT 100");
+    while ($_d = $_q->fetch_row()) {
+        $member_types[$_d[0]] = $_d[1];
+    }
+    $selected_member_type = $member_types;
+    $outvisit = '';
+    foreach ($months as $month_num => $month) {
+        $outvisit .= '{';
+        $outvisit .= 'period:\''.$month.'\',';
+        foreach ($selected_member_type as $id => $member_type) {
+            $sql_str = "SELECT COUNT(visitor_id) FROM visitor_count AS vc
+                INNER JOIN (member AS m LEFT JOIN mst_member_type AS mt ON m.member_type_id=mt.member_type_id) ON m.member_id=vc.member_id
+                WHERE m.member_type_id=$id AND vc.checkin_date LIKE '$month-%'";
+            $visitor_q = $dbs->query($sql_str);
+            $visitor_d = $visitor_q->fetch_row();
+            $outvisit .= '\''.$member_type.'\':'.$visitor_d[0].',';
+        }
+        $outvisit .= '},';
+    }
+    $ykeys = '';
+    foreach ($member_types as $item) {
+        $ykeys .= '\'';
+        $ykeys .= $item;
+        $ykeys .= '\',';
+    }
+    
+    // total items by Collection Type
+    $stat_query = $dbs->query('SELECT coll_type_name, COUNT(item_id) AS total_items
+        FROM `item` AS i
+        INNER JOIN mst_coll_type AS ct ON i.coll_type_id = ct.coll_type_id
+        GROUP BY i.coll_type_id
+        HAVING total_items >0
+        ORDER BY COUNT(item_id) DESC');
+    $stat_data = '';
+    while ($data = $stat_query->fetch_row()) {
+        $stat_data .= '{';
+        $stat_data .= 'value: '.$data[1].', label: \''.$data[0].'\'';
+        $stat_data .= '},';
+    }
+?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // get data with ajax
+        setInterval(function(){
+            $.get('default/visitor.php', function(data) {
+                $('#w-visitor').html(data);
+            });
+            $.get('default/loan.php', function(data) {
+                $('#w-loan').html(data);
+            });
+        }, 3000); //time to reload data (milisecond)
+        Morris.Area({
+            element: 'visit-chart',
+            data: [<?php echo $outvisit; ?>],
+            xkey: 'period',
+            ykeys: [<?php echo $ykeys; ?>],
+            labels: [<?php echo $ykeys; ?>],
+            pointSize: 0,
+            hideHover: 'auto',
+            lineColors: ['#ff7857', '#fdd761', '#7acbee', '#3FB8AF', '#D4EE5E', '#F2D694', '#DD7D27', '#2FCE03'],
+            fillOpacity: 0.75,
+            lineWidth: 0,
+            resize: true
+        });
+        Morris.Donut({
+            element: 'col_type',
+            data: [<?php echo $stat_data; ?>],
+            backgroundColor: '#fff',
+            labelColor: '#060',
+            colors: ['#ff7857', '#fdd761', '#7acbee', '#3FB8AF', '#D4EE5E', '#F2D694', '#DD7D27', '#2FCE03'],
+            formatter: function (x) { return x + " item"}
+        });
+    });        
+</script>
+<script src="<?php echo ATD; ?>js/plugins/morris/raphael-2.1.0.min.js"></script>
+<script src="<?php echo ATD; ?>js/plugins/morris/morris.js"></script>

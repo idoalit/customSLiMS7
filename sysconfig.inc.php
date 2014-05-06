@@ -164,6 +164,7 @@ $sysconf['template']['css'] = $sysconf['template']['dir'].'/'.$sysconf['template
 $sysconf['admin_template']['dir'] = 'admin_template';
 $sysconf['admin_template']['theme'] = 'default';
 $sysconf['admin_template']['css'] = $sysconf['admin_template']['dir'].'/'.$sysconf['admin_template']['theme'].'/style.css';
+define ('ATD', $sysconf['admin_template']['dir'].'/'.$sysconf['admin_template']['theme'].'/');
 
 /* OPAC */
 $sysconf['opac_result_num'] = 10;

@@ -97,6 +97,7 @@ function setCounter($str_member_ID) {
           $_i = $dbs->query("INSERT INTO visitor_count (member_name, institution, checkin_date) VALUES ('$member_name', '$_institution', '$_checkin_date')");
           
           // setting cookie visitor
+          setcookie("visit_id","NULL", time()+3600);
           setcookie("visit_name","$member_name", time()+3600);
       }
   }
@@ -107,8 +108,11 @@ function setCounter($str_member_ID) {
 $memberID = trim($_POST['memberID']);
 
 // get cookie
+$visit_id = '';
 $visit_id = $_COOKIE['visit_id'];
+$visit_name ='';
 $visit_name = $_COOKIE['visit_name'];
+$counter = '';
 
 if($memberID === $visit_id){
     echo '<div class="alert alert-warning">Maaf '.$visit_name.', anda sudah memasukan data sebelumnya.</div>';

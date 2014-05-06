@@ -46,6 +46,9 @@ class utility
         $str_message = str_replace("\n", '\n', $str_message);
         echo '<script type="text/javascript">'."\n";
         echo 'alert("'.addslashes($str_message).'")'."\n";
+        //echo '$(document).ready(function() {'."\n";
+        //echo 'alertify.error("Error notification");'."\n";
+        //echo '});'."\n";
         echo '</script>'."\n";
     }
 
