@@ -47,11 +47,17 @@ require SIMBIO.'simbio_GUI/form_maker/simbio_form_element.inc.php';
             <div class="col-md-3 col-sm-3">
                 <div class="w-box">
                     <div class="w-left bg-warning">
-                        <i class="fa fa-users"></i>
+                        <i class="fa fa-book"></i>
                     </div>
                     <div class="w-right">
-                        <p class="w-value">80<span class="w-unit">%</span></p>
-                        <p class="w-key">Text</p>
+                        <p class="w-value">
+                        <?php
+                        $stat_query = $dbs->query('SELECT COUNT(biblio_id) FROM biblio');
+                        $stat_data = $stat_query->fetch_row();
+                        echo $stat_data[0];
+                        ?>
+                        </p>
+                        <p class="w-key">Titles</p>
                     </div>
                 </div>
             </div>
