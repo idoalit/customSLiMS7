@@ -20,7 +20,7 @@ jQuery.fn.simbioTable = function(params) {
   // set some options
   var options = {
     mouseoverCol: '#6dff77',
-    highlightCol: 'yellow'
+    highlightCol: 'rgba(255,0,127,.15)'
   };
   jQuery.extend(options, params);
 

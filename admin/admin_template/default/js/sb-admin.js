@@ -1,11 +1,29 @@
+$(window).scroll(function(){
+    if ($(window).scrollTop() >= 10) {
+       $('.navbar-static-top').css('box-shadow','0px 2px 2px rgba(0,0,0,0.5)');
+    }
+    else {
+       $('.navbar-static-top').css('box-shadow','none');
+    }
+});
 $(function() {
     $('#side-menu').metisMenu();
     $(".alert").alert();
     $('#page-wrapper, .sub_menu').click(function(){
         $('.nav-min .mainMenu').removeClass('active'),$('.nav-min .nav-second-level').removeClass('in');
     });
-    var width = $window.width();
-    992 > width ? $('#wrapper').addClass("nav-min") : void 0
+    /*var w = $(document).width();
+    w < 992 ? $('#wrapper').addClass("nav-min") : void 0;*/
+    var $window = $(window),
+        $html = $('#wrapper');
+
+    $window.resize(function resize() {
+        if ($window.width() < 992) {
+            return $html.addClass('nav-min');
+        }
+
+        $html.removeClass('nav-min');
+    }).trigger('resize');
 });
 
 //Loads the correct sidebar on window load,

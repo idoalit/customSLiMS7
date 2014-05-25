@@ -12,6 +12,7 @@
 
  #wrapper {
     width: 100%;
+    padding-top: 58px;
 }
 
 #page-wrapper {
@@ -40,7 +41,7 @@
 
 /* Top Right Navigation Dropdown Styles */
 
- .navbar-top-links li {
+.navbar-top-links li {
     display: inline-block;
 }
 
@@ -128,13 +129,9 @@
 }
 
 @media only screen and (max-width: 992px){
-    #side-menu li a span{
-	display: none;
-    }
     .navbar-static-side {
         z-index: 1;
         position: absolute;
-        width: 50px;
     }
     #page-wrapper {
         position: inherit;
@@ -179,6 +176,9 @@
    white-space:nowrap;
 }
 
+.img-profile{
+   width: 30px;
+}
 .arrow {
     float: right;
 }
@@ -393,4 +393,7 @@ table.dataTable thead .sorting:after {
 
 .show-grid {
     margin: 15px 0;
+}
+.btn{
+   border-radius: 2px;
 }

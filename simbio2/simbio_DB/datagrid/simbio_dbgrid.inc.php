@@ -276,14 +276,14 @@ class simbio_datagrid extends simbio_table
                 $_edit_fields = array();
                 // check if checkbox array is included
                 if ($this->chbox_property) {
-                    $_del_chbox = '<input type="checkbox" name="'.$this->chbox_property[0].'[]" value="'.$this->grid_result_rows[$_row][0].'" id="cbRow'.$_row.'" />';
+                    $_del_chbox = '<input class="checkedbox" type="checkbox" name="'.$this->chbox_property[0].'[]" value="'.$this->grid_result_rows[$_row][0].'" id="cbRow'.$_row.'" /><lable class="ceklabel" for="cbRow'.$_row.'"></label>';
                     $_edit_fields[] = $_del_chbox;
                 }
                 // check if edit link array is included
                 if ($this->edit_property) {
                     $_edit_data = $this->edit_property[0].'='.$this->grid_result_rows[$_row][0].'&detail=true';
                     $_edit_link = '<a class="editLink'.( !$this->using_AJAX?' notAJAX':'' ).'" '
-                        .'href="'.$_SERVER['PHP_SELF'].'?'.$_edit_data.'&'.$_url_query_str.'" postdata="'.$_edit_data.'" title="Edit">'.( $this->edit_link_text?$this->edit_link_text:'&nbsp;' ).'</a>';
+                        .'href="'.$_SERVER['PHP_SELF'].'?'.$_edit_data.'&'.$_url_query_str.'" postdata="'.$_edit_data.'" title="Edit">'.( $this->edit_link_text?$this->edit_link_text:'&nbsp;' ).'<i class="fa fa-pencil-square"></i></a>';
                     $_edit_fields[] = $_edit_link;
                 }
                 // unset the first element (ID field)
@@ -294,7 +294,7 @@ class simbio_datagrid extends simbio_table
             // editable field style and column width modification
             for ($f = 0; $f < $_field_cnt; $f++) {
                 if (($this->chbox_property AND $this->edit_property) AND ($f < 2) AND $this->editable) {
-                    $this->setCellAttr($_row, $f, 'align="center" valign="top" style="width: 5%;"');
+                    $this->setCellAttr($_row, $f, 'align="center" valign="top" style="width: 5%; vertical-align: middle;"');
                 } else {
                     // checking for special field width value set by column_width property array
                     $_attr = 'valign="top"';

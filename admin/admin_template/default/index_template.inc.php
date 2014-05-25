@@ -6,7 +6,6 @@
 <meta http-equiv="Expires" content="Sat, 26 Jul 1997 05:00:00 GMT" />
 
 <link href="<?php echo $sysconf['admin_template']['css']; ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo ATD; ?>font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="<?php echo ATD; ?>css/sb-admin.css" rel="stylesheet">
 
 <link href="<?php echo ATD; ?>css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
@@ -38,37 +37,45 @@
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <a class="navbar-brand" id="main-menu-toggle" href="#" onclick="navMin()">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <a class="navbar-brand" href="./index.php">
-                    <div id="logo"></div>
-                    <?php echo $sysconf['library_name']; ?>
-                </a>
-            </div>
-            <!-- /.navbar-header -->
-
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            <a class="navbar-brand" id="main-menu-toggle" href="#" onclick="navMin()"><i class="fa fa-bars"></i></a>
+            <div class="navbar-inner">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="./index.php">
+                        <div id="logo"></div>
+                        <?php echo $sysconf['library_name']; ?>
                     </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li class="sub_menu"><a href="<?php echo MWB.'system/app_user.php?changecurrent=true&action=detail'; ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="index.php?mod=system"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
+                    <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar-collapse"><i class="navbar-icon fa fa-bars"></i></button>
+                    --><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-colapse"><i class="navbar-icon fa fa-bars"></i></button>
+                </div>
+                
+                <div class="collapse navbar-collapse" id="main-navbar-colapse">
+                    <div>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <?php
+                                    $username = $_SESSION['uname'];
+                                    $img_q = $dbs->query("SELECT user_image FROM user WHERE username='$username'");
+                                    $img_d = $img_q->fetch_row();
+                                    ?>
+                                    <img src="<?php echo '../images/persons/'.$img_d[0]; ?>" class="img-circle img-profile"/>&nbsp;
+                                    <span><?php echo $_SESSION['realname']; ?></span>
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li class="sub_menu"><a href="<?php echo MWB.'system/app_user.php?changecurrent=true&action=detail'; ?>"><i class="fa fa-user fa-fw"></i> Profile</a>
+                                    </li>
+                                    <li><a href="index.php?mod=system"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="logout.php"><i class="fa fa-power-off fa-fw"></i> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </nav>
         <!-- /.navbar-static-top -->
         
