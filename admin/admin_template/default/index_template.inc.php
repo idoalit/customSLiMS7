@@ -5,10 +5,10 @@
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, post-check=0, pre-check=0" />
 <meta http-equiv="Expires" content="Sat, 26 Jul 1997 05:00:00 GMT" />
 
-<link href="<?php echo $sysconf['admin_template']['css']; ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo ATD; ?>css/style.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo ATD; ?>css/sb-admin.css" rel="stylesheet">
 
-<link href="<?php echo ATD; ?>css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+<link href="<?php echo ATD; ?>css/plugins/morris/morris.css" rel="stylesheet">
 <link href="<?php echo ATD; ?>css/plugins/timeline/timeline.css" rel="stylesheet">
 
 <link rel="icon" href="<?php echo SWB; ?>webicon.ico" type="image/x-icon" />

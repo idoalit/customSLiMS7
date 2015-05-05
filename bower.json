@@ -1,0 +1,25 @@
+{
+  "name": "customSLiMS7",
+  "version": "0.0.0",
+  "homepage": "https://github.com/idoalit/customSLiMS7",
+  "authors": [
+    "ido alit <ido.alit@gmail.com>"
+  ],
+  "description": "custom slims 7 cendana",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "slims",
+    "opac",
+    "cendana"
+  ],
+  "license": "GNU GPL v3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

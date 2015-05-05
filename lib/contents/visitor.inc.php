@@ -31,6 +31,9 @@ if (!defined('INDEX_AUTH')) {
 $allowed_counter_ip = array('127.0.0.1');
 $remote_addr = $_SERVER['REMOTE_ADDR'];
 $confirmation = 0;
+$visit_id = '';
+$visit_name ='';
+$counter = '';
 
 foreach ($allowed_counter_ip as $ip) {
 // change wildcard
@@ -108,11 +111,8 @@ function setCounter($str_member_ID) {
 $memberID = trim($_POST['memberID']);
 
 // get cookie
-$visit_id = '';
 $visit_id = $_COOKIE['visit_id'];
-$visit_name ='';
 $visit_name = $_COOKIE['visit_name'];
-$counter = '';
 
 if($memberID === $visit_id){
     echo '<div class="alert alert-warning">Maaf '.$visit_name.', anda sudah memasukan data sebelumnya.</div>';

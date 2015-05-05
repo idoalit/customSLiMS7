@@ -1,16 +1,11 @@
 <?php
-// IP based access limitation
-require LIB.'ip_based_access.inc.php';
-do_checkIP('smc');
-do_checkIP('smc-reporting');
-// start the session
-require SB.'admin/default/session_check.inc.php';
-// privileges checking
-$can_read = utility::havePrivilege('reporting', 'r');
-$can_write = utility::havePrivilege('reporting', 'w');
+// key to authenticate
+if (!defined('INDEX_AUTH')) {
+    define('INDEX_AUTH', '1');
+}
 
-if (!$can_read) {
-    die('<div class="alert alert-danger">'.__('You don\'t have enough privileges to access this area!').'</div>');
+if (basename($_SERVER['PHP_SELF']) == basename(__FILE__)) {
+    include_once '../../sysconfig.inc.php';
 }
 
 require SIMBIO.'simbio_GUI/form_maker/simbio_form_element.inc.php';
@@ -188,4 +183,4 @@ require SIMBIO.'simbio_GUI/form_maker/simbio_form_element.inc.php';
     });        
 </script>
 <script src="<?php echo ATD; ?>js/plugins/morris/raphael-2.1.0.min.js"></script>
-<script src="<?php echo ATD; ?>js/plugins/morris/morris.js"></script>
+<script src="<?php echo ATD; ?>js/plugins/morris/morris.min.js"></script>
